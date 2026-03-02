@@ -60,14 +60,24 @@ class RegisterPage {
             const password = document.getElementById('register-password').value;
             const confirmPassword = document.getElementById('register-confirm-password').value;
 
-            if (!document.getElementById('register-firstname').classList.contains('is-invalid') && (!validation.isMinLength(firstname, 2) || !validation.isMaxLength(firstname, 50))) {
-                this.showError('register-firstname', 'Deve ter entre 2 e 50 caracteres');
-                hasError = true;
+            if (!document.getElementById('register-firstname').classList.contains('is-invalid')) {
+                if (!validation.isMinLength(firstname, 2) || !validation.isMaxLength(firstname, 50)) {
+                    this.showError('register-firstname', 'Deve ter entre 2 e 50 caracteres');
+                    hasError = true;
+                } else if (!validation.hasNoSpecialCharacters(firstname)) {
+                    this.showError('register-firstname', 'Apenas letras são permitidas');
+                    hasError = true;
+                }
             }
 
-            if (!document.getElementById('register-lastname').classList.contains('is-invalid') && (!validation.isMinLength(lastname, 2) || !validation.isMaxLength(lastname, 200))) {
-                this.showError('register-lastname', 'Deve ter entre 2 e 200 caracteres');
-                hasError = true;
+            if (!document.getElementById('register-lastname').classList.contains('is-invalid')) {
+                if (!validation.isMinLength(lastname, 2) || !validation.isMaxLength(lastname, 200)) {
+                    this.showError('register-lastname', 'Deve ter entre 2 e 200 caracteres');
+                    hasError = true;
+                } else if (!validation.hasNoSpecialCharacters(lastname)) {
+                    this.showError('register-lastname', 'Apenas letras são permitidas');
+                    hasError = true;
+                }
             }
 
             if (!document.getElementById('register-email').classList.contains('is-invalid') && !validation.isEmail(email)) {
@@ -95,8 +105,8 @@ class RegisterPage {
             });
 
             if (result.success) {
-                // Login automatico ou redirecionamento para login
                 authService.login(email, password);
+                sessionStorage.setItem('justRegistered', JSON.stringify({ firstname, lastname }));
                 window.location.href = 'index.html';
             } else {
                 this.showError('register-email', result.message);

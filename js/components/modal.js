@@ -30,7 +30,7 @@ class Modal {
         });
     }
 
-    show({ title, body, confirmText = 'Confirmar', cancelText = 'Cancelar', onConfirm, onCancel }) {
+    show({ title, body, confirmText = 'Confirmar', cancelText = 'Cancelar', showCancel = true, onConfirm, onCancel }) {
         if (!this.modal || !this.overlay) this.createElements();
 
         this.modal.innerHTML = `
@@ -42,13 +42,12 @@ class Modal {
                 ${body}
             </div>
             <div class="modal-footer">
-                <button class="btn btn--outline" id="modal-cancel-btn" data-testid="modal-cancel-btn">${cancelText}</button>
+                ${showCancel ? `<button class="btn btn--outline" id="modal-cancel-btn" data-testid="modal-cancel-btn">${cancelText}</button>` : ''}
                 <button class="btn btn--primary" id="modal-confirm-btn" data-testid="modal-confirm-btn">${confirmText}</button>
             </div>
         `;
 
         const closeBtn = this.modal.querySelector('.modal-close');
-        const cancelBtn = this.modal.querySelector('#modal-cancel-btn');
         const confirmBtn = this.modal.querySelector('#modal-confirm-btn');
 
         const handleClose = () => {
@@ -57,7 +56,11 @@ class Modal {
         };
 
         closeBtn.addEventListener('click', handleClose);
-        cancelBtn.addEventListener('click', handleClose);
+        
+        if (showCancel) {
+            const cancelBtn = this.modal.querySelector('#modal-cancel-btn');
+            if (cancelBtn) cancelBtn.addEventListener('click', handleClose);
+        }
         
         confirmBtn.addEventListener('click', () => {
             if (onConfirm) onConfirm();

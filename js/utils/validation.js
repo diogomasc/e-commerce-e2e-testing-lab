@@ -12,6 +12,11 @@ export const validation = {
         return str && str.trim().length <= max;
     },
 
+    hasNoSpecialCharacters: (str) => {
+        const re = /^[a-zA-ZÀ-ÿ\s]+$/;
+        return re.test(str);
+    },
+
     isValidCPF: (cpf) => {
         cpf = cpf.replace(/[^\d]+/g, '');
         if (cpf === '' || cpf.length !== 11) return false;
