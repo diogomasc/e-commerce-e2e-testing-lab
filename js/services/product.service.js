@@ -1,4 +1,5 @@
 import { products } from '../data/products.js';
+import { getProductStartingPrice } from '../domain/product-pricing.js';
 
 class ProductService {
     getAll() {
@@ -25,9 +26,9 @@ class ProductService {
         }
 
         if (sort === 'asc') {
-            result.sort((a, b) => a.price - b.price);
+            result.sort((a, b) => getProductStartingPrice(a) - getProductStartingPrice(b));
         } else if (sort === 'desc') {
-            result.sort((a, b) => b.price - a.price);
+            result.sort((a, b) => getProductStartingPrice(b) - getProductStartingPrice(a));
         }
 
         return result;

@@ -3,16 +3,18 @@ import { findCoupon, isCouponEligible, getCouponRequirementMessage, appliesDisco
 import { getVariantAvailability } from '../domain/product-availability.js';
 import { products } from '../data/products.js';
 import { getProductImages } from '../domain/product-images.js';
+import { getProductPrice } from '../domain/product-pricing.js';
 
 class CartService {
     getCart() {
         const cart = storage.get(CONSTANTS.CART_KEY) || { items: [], coupon: null };
-        // Atualiza também imagens de carrinhos salvos antes das variantes.
+        // Atualiza também imagens e preços de carrinhos salvos antes das variantes.
         cart.items = cart.items.map(item => {
             const product = products.find(product => product.id === item.productId);
             return product ? {
                 ...item,
-                image: getProductImages(product, item.color)[0]
+                image: getProductImages(product, item.color)[0],
+                price: getProductPrice(product, item.size)
             } : item;
         });
         return cart;
@@ -45,7 +47,7 @@ class CartService {
             cart.items.push({
                 productId,
                 title: product.title,
-                price: product.price,
+                price: getProductPrice(product, size),
                 image: getProductImages(product, color)[0],
                 size,
                 color,

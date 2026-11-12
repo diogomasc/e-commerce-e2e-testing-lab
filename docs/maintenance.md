@@ -13,6 +13,12 @@ A loja continua usando módulos ES nativos, sem build ou dependências de execu�
 
 Para adicionar um cupom, configure seus dados em `js/data/coupons.js` e confira sua política em `js/domain/coupon-rules.js`. Para alterar disponibilidade, configure as variantes do produto em `js/data/products.js`; a decisão compartilhada fica em `js/domain/product-availability.js`.
 
+## Tamanhos e preços
+
+Em `js/data/products.js`, `sizes` define as opções exibidas e `pricesBySize` define o preço unitário de cada tamanho. Camisas e camisetas vão de P a GG; o jeans mantém 38 a 44 e inclui 46, 48 e G1 a G4. Os tamanhos G1 a G4 são opções próprias do laboratório, sem equivalência numérica declarada. Bermudas e tênis também têm preços distintos por tamanho; o cinto tem tamanho e preço únicos.
+
+`js/domain/product-pricing.js` centraliza a resolução do preço, com fallback para `price` nos produtos sem tabela. O catálogo exibe o menor preço com “A partir de” quando os valores variam, e ordena por esse mesmo valor. O detalhe atualiza o preço ao selecionar um tamanho. Carrinho e checkout usam o preço da variante; carrinhos antigos são atualizados ao carregar. Pedidos já concluídos mantêm os valores registrados na compra.
+
 ## Contratos do laboratório
 
 Os bugs intencionais fazem parte dos exercícios. A política de desconto, a exceção de estoque e as validações atuais de CPF e CEP devem permanecer até uma decisão explícita de alterar o exercício. Textos, rotas, `data-testid`, chaves de armazenamento e eventos também são contratos usados pelos testes E2E.

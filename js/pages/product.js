@@ -1,5 +1,6 @@
 import { isVariantUnavailable } from '../domain/product-availability.js';
 import { getProductImages } from '../domain/product-images.js';
+import { getProductPrice } from '../domain/product-pricing.js';
 import { productService } from '../services/product.service.js';
 import { cartService } from '../services/cart.service.js';
 import { format } from '../utils/format.js';
@@ -73,7 +74,7 @@ class ProductPage {
                 <p style="color: var(--color-text-light); margin-bottom: var(--spacing-lg);" data-testid="product-detail-desc">${product.description}</p>
                 
                 <div style="font-size: 2rem; font-weight: bold; color: var(--color-primary); margin-bottom: var(--spacing-lg);" data-testid="product-detail-price">
-                    ${format.currency(product.price)}
+                    ${format.currency(getProductPrice(product, selectedSize))}
                 </div>
 
                 <div style="margin-bottom: var(--spacing-md);">
