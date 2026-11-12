@@ -40,7 +40,7 @@ class ProductPage {
         const { product, selectedSize, selectedColor } = this;
 
         const sizesHtml = product.sizes.map(size => `
-            <button type="button" class="btn ${size === selectedSize ? 'btn--primary' : 'btn--outline'} size-btn" data-size="${size}" data-testid="size-${size}">
+            <button type="button" class="btn ${size === selectedSize ? 'btn--primary' : 'btn--outline'} size-btn ${this.isUnavailable(size, selectedColor) ? 'variant-unavailable' : ''}" title="${this.isUnavailable(size, selectedColor) ? 'Tamanho indisponível nesta cor' : 'Selecionar tamanho'}" aria-pressed="${size === selectedSize}" data-size="${size}" data-testid="size-${size}">
                 ${size}
             </button>
         `).join('');
@@ -90,6 +90,7 @@ class ProductPage {
                 <div id="add-to-cart-feedback" data-testid="add-to-cart-feedback" style="display: none; color: var(--color-success); margin-top: var(--spacing-sm); font-weight: bold; text-align: center;">
                     Produto adicionado!
                 </div>
+                <div id="product-unavailable-warning" data-testid="product-unavailable-warning" role="alert" style="display: none; color: var(--color-error); margin-top: var(--spacing-sm); text-align: center;"></div>
             </div>
         `;
     }
@@ -119,10 +120,23 @@ class ProductPage {
         });
     }
 
+    isUnavailable(size, color) {
+        return this.product.unavailableVariants?.some(variant => variant.size === size && variant.color === color) || false;
+    }
+
     addToCart() {
-        cartService.addItem(this.product.id, this.selectedSize, this.selectedColor);
+        const result = cartService.addItem(this.product.id, this.selectedSize, this.selectedColor);
+        const warning = document.getElementById('product-unavailable-warning');
+        if (warning) {
+            warning.textContent = result?.message || '';
+            warning.style.display = result?.message ? 'block' : 'none';
+        }
         
         const feedback = document.getElementById('add-to-cart-feedback');
+        if (!result?.success || result.message) {
+            if (feedback) feedback.style.display = 'none';
+            return;
+        }
         if (feedback) {
             feedback.style.display = 'block';
             setTimeout(() => {

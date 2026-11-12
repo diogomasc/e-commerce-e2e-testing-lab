@@ -17,7 +17,12 @@ export const products = [
         price: 129.90,
         images: ["https://taco.vtexassets.com/arquivos/ids/556218/23262_C054_1-CJNS-SKIN-LAV-MEDIA.jpg?v=638999406291970000", "https://taco.vtexassets.com/arquivos/ids/556225/23262_C054_2-CJNS-SKIN-LAV-MEDIA.jpg?v=638999406390430000"],
         sizes: ["38", "40", "42", "44"],
-        colors: ["Azul Escuro", "Preta"]
+        colors: ["Azul Escuro", "Preta"],
+        unavailableVariants: [
+            { size: "38", color: "Azul Escuro" },
+            { size: "40", color: "Azul Escuro" }
+        ],
+        allowUnavailablePurchase: true // Bug intencional: avisa, mas permite comprar.
     },
     {
         id: "prod-003",
@@ -27,7 +32,11 @@ export const products = [
         price: 79.90,
         images: ["https://img.lojasrenner.com.br/item/930468937/original/13.jpg", "https://img.lojasrenner.com.br/item/930468937/original/14.jpg", "https://img.lojasrenner.com.br/item/930468937/original/16.jpg", "https://img.lojasrenner.com.br/item/930468937/original/17.jpg"],
         sizes: ["P", "M", "G", "GG"],
-        colors: ["Caqui", "Verde Oliva"]
+        colors: ["Caqui", "Verde Oliva"],
+        unavailableVariants: [
+            { size: "P", color: "Caqui" },
+            { size: "GG", color: "Verde Oliva" }
+        ]
     },
     {
         id: "prod-004",

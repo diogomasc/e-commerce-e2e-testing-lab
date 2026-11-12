@@ -44,12 +44,12 @@ class CheckoutPage {
     applyMasks() {
         applyMask('#checkout-cpf', masks.cpf);
         applyMask('#checkout-phone', masks.phone);
-        applyMask('#checkout-cep', masks.cep);
+        // Bug intencional: o CEP aceita texto livre, sem máscara ou validação de formato.
         applyMask('#checkout-card-number', masks.cardNumber);
         applyMask('#checkout-card-expiry', masks.cardExpiry);
 
         // Restricoes adicionais de tamanho aplicadas via atributos e JS
-        ['checkout-cpf', 'checkout-phone', 'checkout-cep', 'checkout-card-number', 'checkout-card-expiry', 'checkout-card-cvv'].forEach(id => {
+        ['checkout-cpf', 'checkout-phone', 'checkout-card-number', 'checkout-card-expiry', 'checkout-card-cvv'].forEach(id => {
             const el = document.getElementById(id);
             if(el && el.maxLength) {
                 el.addEventListener('input', () => validation.cutAtMax(el, el.maxLength));
@@ -112,7 +112,6 @@ class CheckoutPage {
         // Informacoes Basicas
         const email = document.getElementById('checkout-email');
         const cpf = document.getElementById('checkout-cpf');
-        const cep = document.getElementById('checkout-cep');
         const expiry = document.getElementById('checkout-card-expiry');
         const cvv = document.getElementById('checkout-card-cvv');
 
@@ -123,11 +122,6 @@ class CheckoutPage {
 
         if (!validation.isValidCPF(cpf.value)) {
             this.showError('checkout-cpf', 'CPF inválido');
-            isValid = false;
-        }
-
-        if (!validation.isValidCEP(cep.value)) {
-            this.showError('checkout-cep', 'CEP inválido');
             isValid = false;
         }
 

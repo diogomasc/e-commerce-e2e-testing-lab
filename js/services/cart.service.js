@@ -19,6 +19,12 @@ class CartService {
         
         if (!product) return;
 
+        const unavailable = product.unavailableVariants?.some(variant => variant.size === size && variant.color === color);
+        const warning = unavailable ? 'O item, tamanho ou cor desejado encontra-se indisponível.' : null;
+        if (unavailable && !product.allowUnavailablePurchase) {
+            return { success: false, message: warning };
+        }
+
         const existingItemIndex = cart.items.findIndex(
             item => item.productId === productId && item.size === size && item.color === color
         );
@@ -39,6 +45,7 @@ class CartService {
 
         this.validateCoupon(cart);
         this.saveCart(cart);
+        return { success: true, message: warning };
     }
 
     updateQuantity(productId, size, color, quantity) {
@@ -71,8 +78,11 @@ class CartService {
             return { success: false, message: "Cupom inválido." };
         }
 
-        if (total < coupon.minPurchase) {
-            return { success: false, message: `Compra mínima de R$ ${coupon.minPurchase} para este cupom.` };
+        if (!this.isCouponEligible(coupon, total)) {
+            const message = coupon.exclusiveMinimum
+                ? `Compra acima de R$ ${coupon.minPurchase} para este cupom.`
+                : `Compra mínima de R$ ${coupon.minPurchase} para este cupom.`;
+            return { success: false, message };
         }
 
         cart.coupon = coupon;
@@ -88,11 +98,18 @@ class CartService {
 
     validateCoupon(cart) {
         if (cart.coupon) {
+            cart.coupon = coupons.find(c => c.code === cart.coupon.code) || null;
             const subtotal = this.getSubtotal(cart);
-            if (subtotal < cart.coupon.minPurchase) {
+            if (!cart.coupon || !this.isCouponEligible(cart.coupon, subtotal)) {
                 cart.coupon = null; // Automatically remove if below minimum
             }
         }
+    }
+
+    isCouponEligible(coupon, subtotal) {
+        return coupon.exclusiveMinimum
+            ? subtotal > coupon.minPurchase
+            : subtotal >= coupon.minPurchase;
     }
 
     getSubtotal(cart = this.getCart()) {
@@ -101,15 +118,17 @@ class CartService {
 
     getTotal(cart = this.getCart()) {
         const subtotal = this.getSubtotal(cart);
-        const discount = cart.coupon ? cart.coupon.discount : 0;
-        // BUG INTENCIONAL PARA E2E: O desconto nao eh subtraido do total
-        return Math.max(0, subtotal);
+        const appliesDiscount = ['DESCONTO20', 'DESCONTO50'].includes(cart.coupon?.code);
+        // BUG INTENCIONAL PARA E2E: os demais cupons exibem desconto, mas nao reduzem o total.
+        const discount = appliesDiscount ? this.getDiscount(cart) : 0;
+        return Math.max(0, subtotal - discount);
     }
 
     getDiscount(cart = this.getCart()) {
-        if (!cart.coupon) return 0;
+        const coupon = coupons.find(c => c.code === cart.coupon?.code);
+        if (!coupon) return 0;
         const subtotal = this.getSubtotal(cart);
-        return subtotal >= cart.coupon.minPurchase ? cart.coupon.discount : 0;
+        return this.isCouponEligible(coupon, subtotal) ? coupon.discount : 0;
     }
 
     clearCart() {
