@@ -1,4 +1,18 @@
 /* css/components.css */
+.icon {
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  vertical-align: middle;
+  pointer-events: none;
+}
+
+.icon--success {
+  width: 64px;
+  height: 64px;
+}
+
 .btn {
   display: inline-flex;
   align-items: center;
@@ -85,6 +99,66 @@
 
 .card:hover {
   box-shadow: var(--shadow-md);
+}
+
+.product-card {
+  transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+}
+
+.product-card > a {
+  display: block;
+}
+
+.product-card__image {
+  overflow: hidden;
+  height: 200px;
+}
+
+.product-card__image img {
+  display: block;
+  transition: transform 400ms ease-out;
+}
+
+.product-card:focus-within {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+.product-card:focus-within .product-card__image img {
+  transform: scale(1.03);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .product-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  .product-card:hover .product-card__image img {
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .product-card,
+  .product-card__image img {
+    transition: none;
+    transform: none !important;
+  }
+}
+
+.size-btn.variant-unavailable {
+  position: relative;
+}
+
+.size-btn.variant-unavailable::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom right, transparent calc(50% - 1px), currentColor 50%, transparent calc(50% + 1px));
+  pointer-events: none;
 }
 
 .badge {

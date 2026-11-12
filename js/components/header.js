@@ -1,5 +1,6 @@
 import { authService } from '../services/auth.service.js';
 import { cartService } from '../services/cart.service.js';
+import { icon } from './icons.js';
 
 class HeaderComponent {
     constructor() {
@@ -28,8 +29,8 @@ class HeaderComponent {
               `;
 
         const authMobileIcon = user
-            ? `<a href="profile.html" aria-label="Perfil" data-testid="mobile-profile-link" style="font-size: 1.5rem; color: var(--color-primary); text-decoration: none;">👤</a>`
-            : `<a href="login.html" aria-label="Login" data-testid="mobile-login-link" style="font-size: 1.5rem; color: var(--color-primary); text-decoration: none;">👤</a>`;
+            ? `<a href="profile.html" aria-label="Perfil" data-testid="mobile-profile-link" style="font-size: 1.5rem; color: var(--color-primary); text-decoration: none;">${icon('user-round')}</a>`
+            : `<a href="login.html" aria-label="Login" data-testid="mobile-login-link" style="font-size: 1.5rem; color: var(--color-primary); text-decoration: none;">${icon('user-round')}</a>`;
 
         const authMobileMenu = user
             ? `<button class="mobile-menu-link logout-btn" data-testid="logout-btn-mobile" style="text-align: left; background: none; border: none; padding: 0; color: var(--color-error); font-size: 1.125rem; font-weight: 500; cursor: pointer; display: block; width: 100%;">Sair</button>`
@@ -38,9 +39,9 @@ class HeaderComponent {
         this.container.innerHTML = `
             <div class="header__container">
                 <div class="header__top-row">
-                    <button class="header__toggle" id="header-toggle" aria-label="Abrir menu">
-                        <span class="icon-burger">☰</span>
-                        <span class="icon-close" style="display: none;">✕</span>
+                    <button class="header__toggle" id="header-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="header-menu">
+                        <span class="icon-burger">${icon('menu')}</span>
+                        <span class="icon-close" style="display: none;">${icon('x')}</span>
                     </button>
 
                     <a href="index.html" class="logo" data-testid="nav-logo" style="font-size: var(--font-size-xl); font-weight: bold; color: var(--color-primary); margin-right: auto; margin-left: var(--spacing-sm);">
@@ -50,7 +51,7 @@ class HeaderComponent {
                     <div class="header__search desktop-search">
                         <form id="global-search-form-desktop" class="search-form" data-testid="global-search-form" style="display: flex; width: 100%;">
                             <input type="text" id="global-search-input-desktop" class="form-control" placeholder="Buscar produtos..." data-testid="global-search-input" style="border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);">
-                            <button type="submit" class="btn btn--primary" data-testid="global-search-btn" style="border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;">🔍</button>
+                            <button type="submit" class="btn btn--primary" data-testid="global-search-btn" aria-label="Buscar produtos" style="border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;">${icon('search')}</button>
                         </form>
                     </div>
 
@@ -66,8 +67,8 @@ class HeaderComponent {
                             ${authMobileIcon}
                         </div>
                         
-                        <a href="cart.html" data-testid="nav-cart-link" style="position: relative; display: flex; align-items: center; text-decoration: none; margin-left: var(--spacing-sm); margin-right: var(--spacing-sm);">
-                            <span style="font-size: 1.5rem;">🛒</span>
+                        <a href="cart.html" data-testid="nav-cart-link" aria-label="Carrinho" style="position: relative; display: flex; align-items: center; text-decoration: none; margin-left: var(--spacing-sm); margin-right: var(--spacing-sm);">
+                            <span style="font-size: 1.5rem;">${icon('shopping-cart')}</span>
                             <span id="cart-counter" data-testid="cart-counter" class="badge" style="position: absolute; top: -8px; right: -12px;">${cartCount}</span>
                         </a>
                     </div>
@@ -77,7 +78,7 @@ class HeaderComponent {
                 <div class="header__search mobile-search" style="display: none; width: 100%; margin-top: var(--spacing-md);">
                     <form id="global-search-form-mobile" class="search-form" style="display: flex; width: 100%;">
                         <input type="text" id="global-search-input-mobile" class="form-control" placeholder="Buscar produtos..." style="border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);">
-                        <button type="submit" class="btn btn--primary" style="border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;">🔍</button>
+                        <button type="submit" class="btn btn--primary" aria-label="Buscar produtos" style="border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;">${icon('search')}</button>
                     </form>
                 </div>
 
@@ -104,6 +105,8 @@ class HeaderComponent {
             
             toggleBtn.addEventListener('click', () => {
                 const isActive = menu.classList.toggle('active');
+                toggleBtn.setAttribute('aria-expanded', String(isActive));
+                toggleBtn.setAttribute('aria-label', isActive ? 'Fechar menu' : 'Abrir menu');
                 if (isActive) {
                     iconBurger.style.display = 'none';
                     iconClose.style.display = 'inline';

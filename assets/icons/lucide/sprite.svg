@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+<symbol id="search" viewBox="0 0 24 24"><circle xmlns="http://www.w3.org/2000/svg" cx="11" cy="11" r="8" />
+  <path xmlns="http://www.w3.org/2000/svg" d="m21 21-4.3-4.3" />
+</symbol>
+<symbol id="shopping-cart" viewBox="0 0 24 24"><circle xmlns="http://www.w3.org/2000/svg" cx="8" cy="21" r="1" />
+  <circle xmlns="http://www.w3.org/2000/svg" cx="19" cy="21" r="1" />
+  <path xmlns="http://www.w3.org/2000/svg" d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+</symbol>
+<symbol id="user-round" viewBox="0 0 24 24"><circle xmlns="http://www.w3.org/2000/svg" cx="12" cy="8" r="5" />
+  <path xmlns="http://www.w3.org/2000/svg" d="M20 21a8 8 0 0 0-16 0" />
+</symbol>
+<symbol id="menu" viewBox="0 0 24 24"><line xmlns="http://www.w3.org/2000/svg" x1="4" x2="20" y1="12" y2="12" />
+  <line xmlns="http://www.w3.org/2000/svg" x1="4" x2="20" y1="6" y2="6" />
+  <line xmlns="http://www.w3.org/2000/svg" x1="4" x2="20" y1="18" y2="18" />
+</symbol>
+<symbol id="x" viewBox="0 0 24 24"><path xmlns="http://www.w3.org/2000/svg" d="M18 6 6 18" />
+  <path xmlns="http://www.w3.org/2000/svg" d="m6 6 12 12" />
+</symbol>
+<symbol id="circle-check" viewBox="0 0 24 24"><circle xmlns="http://www.w3.org/2000/svg" cx="12" cy="12" r="10" />
+  <path xmlns="http://www.w3.org/2000/svg" d="m9 12 2 2 4-4" />
+</symbol>
+</svg>
