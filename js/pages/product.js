@@ -1,3 +1,4 @@
+import { isVariantUnavailable } from '../domain/product-availability.js';
 import { productService } from '../services/product.service.js';
 import { cartService } from '../services/cart.service.js';
 import { format } from '../utils/format.js';
@@ -121,7 +122,7 @@ class ProductPage {
     }
 
     isUnavailable(size, color) {
-        return this.product.unavailableVariants?.some(variant => variant.size === size && variant.color === color) || false;
+        return isVariantUnavailable(this.product, size, color);
     }
 
     addToCart() {
