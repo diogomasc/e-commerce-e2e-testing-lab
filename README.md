@@ -1,5 +1,7 @@
 # E-Commerce E2E Testing Laboratory 🛒
 
+[Repositório](https://github.com/diogomasc/e-commerce-e2e-testing-lab) · [GitHub Pages](https://diogomasc.github.io/e-commerce-e2e-testing-lab/)
+
 O **E-commerce E2E Test**, é uma aplicação puramente desenvolvida em **Vanilla JavaScript** (ES6+), **HTML5** e **CSS3**, focada em servir como ambiente base, limpo e determinístico para testes End-to-End (E2E) com frameworks como Cypress, Playwright ou Selenium.
 
 O objetivo é praticar **testes de caixa preta** em cenários de uma loja: navegar, preencher formulários, comprar e conferir os resultados apresentados ao usuário. A aplicação inclui bugs intencionais para exercitar a descoberta e o registro de defeitos. Os testes devem interagir com a interface e verificar comportamentos observáveis, sem depender da implementação interna.
@@ -50,8 +52,8 @@ A loja é uma aplicação estática e não exige build nem instalação de depen
 Com o **Git instalado**, abra o terminal na pasta em que deseja guardar o projeto e execute:
 
 ```bash
-git clone https://github.com/diogomasc/E-Commerce-E2E-Testing-Laboratory.git
-cd E-Commerce-E2E-Testing-Laboratory
+git clone https://github.com/diogomasc/e-commerce-e2e-testing-lab.git
+cd e-commerce-e2e-testing-lab
 ```
 
 O primeiro comando baixa o repositório; o segundo entra na pasta do projeto.
@@ -64,7 +66,7 @@ No mesmo terminal, execute:
 code .
 ```
 
-Se o comando `code` não estiver disponível, abra o VS Code e selecione **Arquivo > Abrir Pasta**, escolhendo a pasta `E-Commerce-E2E-Testing-Laboratory`. Confira se o arquivo `index.html` aparece no painel lateral.
+Se o comando `code` não estiver disponível, abra o VS Code e selecione **Arquivo > Abrir Pasta**, escolhendo a pasta `e-commerce-e2e-testing-lab`. Confira se o arquivo `index.html` aparece no painel lateral.
 
 ### 3. Instale a extensão Live Server
 
@@ -94,7 +96,7 @@ baseUrl: "http://localhost:5500";
 
 Os passos para instalar e configurar o Cypress estão na seção **Primeiros passos com Cypress**, a seguir. Mantenha o servidor ativo enquanto executa os testes contra a loja local.
 
-Também é possível explorar a [loja publicada no GitHub Pages](https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/) sem iniciar um servidor no computador.
+Também é possível explorar a [loja publicada no GitHub Pages](https://diogomasc.github.io/e-commerce-e2e-testing-lab/) sem iniciar um servidor no computador.
 
 ### Rotinas e Pistas para o QA
 
@@ -266,7 +268,7 @@ Você pode passar a URL completa para comandos de navegação, como:
 
 ```javascript
 cy.visit(
-  "https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/register.html",
+  "https://diogomasc.github.io/e-commerce-e2e-testing-lab/register.html",
 );
 ```
 
@@ -283,7 +285,7 @@ const { defineConfig } = require("cypress");
 
 module.exports = defineConfig({
   e2e: {
-    baseUrl: "https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory",
+    baseUrl: "https://diogomasc.github.io/e-commerce-e2e-testing-lab/",
     setupNodeEvents(on, config) {
       // Listeners de eventos do Node, quando necessários.
     },
