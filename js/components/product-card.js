@@ -11,7 +11,7 @@ export const createProductCard = (product) => {
     card.innerHTML = `
         <a href="${detailUrl}" data-testid="product-card-link-${product.id}">
             <div class="product-card__image">
-                <img src="${product.images[0]}" alt="${product.title}" style="width: 100%; height: 200px; object-fit: cover;" data-testid="product-image-${product.id}">
+                <img src="${product.images[0]}" alt="${product.title} — ${product.colors[0]}" style="width: 100%; height: 200px; object-fit: contain; background: #eeece9;" loading="lazy" data-testid="product-image-${product.id}">
             </div>
             <div style="padding: var(--spacing-md);">
                 <span class="badge" style="margin-bottom: var(--spacing-sm);" data-testid="product-category-${product.id}">${product.category}</span>

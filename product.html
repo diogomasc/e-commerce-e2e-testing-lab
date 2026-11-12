@@ -30,17 +30,29 @@
         display: flex;
         gap: var(--spacing-sm);
         margin-top: var(--spacing-sm);
+        flex-wrap: wrap;
       }
-      .product-gallery img {
+      .gallery-btn {
         width: 80px;
         height: 80px;
-        object-fit: cover;
+        padding: 0;
+        background: #eeece9;
+        overflow: hidden;
         border-radius: var(--border-radius-md);
         cursor: pointer;
         border: 2px solid transparent;
       }
-      .product-gallery img.active {
+      .gallery-btn.active {
         border-color: var(--color-primary);
+      }
+      .gallery-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+      .gallery-btn:focus-visible {
+        outline: 2px solid var(--color-primary);
+        outline-offset: 3px;
       }
     </style>
 

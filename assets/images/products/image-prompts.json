@@ -1,0 +1,101 @@
+{
+  "generator": "Built-in image_gen tool",
+  "images": [
+    {
+      "file": "prod-001-branca-front.webp",
+      "prompt": "Use case: product-mockup. Create one original photorealistic ecommerce catalog photograph, portrait 3:4 framing. A plain white slim fit long sleeve cotton dress shirt, collar, plain white buttons, worn on a visibly artificial matte ivory headless retail torso mannequin with no human skin, front view. Entire garment fully in frame with generous margin, centered, seamless light warm gray studio backdrop, soft diffused light, realistic fabric weave. Garment only, no trousers needed. No people, no face, no human body parts, no logos, brands, tags, letters, watermarks or text. Generic original clothing design, no reference to any brand. Neutral consistent catalog styling."
+    },
+    {
+      "file": "prod-002-azul-escuro-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph of MEN'S dark indigo blue skinny fit jeans displayed on an unmistakably MASCULINE retail lower body mannequin. Masculine menswear tailoring: straight broad waistband, narrow hips relative to waist, long front rise, proper men's fly and crotch construction, substantial masculine thighs and calves, skinny tapered leg but NOT leggings. A male athletic mannequin with straight hips, no hourglass waist, no feminine pelvis, no curvy female silhouette. Clearly artificial matte ivory plastic display mannequin, waist to feet. Straight front view, waist and entire jeans fully visible including hem, generous margin, centered portrait 3:4. Plain five pocket denim construction, unbranded metal hardware, dark indigo blue denim throughout. Seamless light warm gray studio background, soft diffused lighting, realistic denim weave. No people, human skin, faces, logos, branding, tags, letters, text or watermark. Generic original men's garment."
+    },
+    {
+      "file": "prod-003-caqui-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: khaki beige knee length cargo shorts with two flap side pockets, displayed on matte ivory retail lower-body mannequin, waist to knees. Straight front view. Entire garment fully visible including hem and waistband, centered with generous empty margin. Seamless light warm gray studio background, soft diffused light, realistic textile texture. Mannequin is visibly artificial ivory plastic, no human skin. No people, no face, no logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-003-verde-oliva-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: olive green knee length cargo shorts with two flap side pockets, displayed on matte ivory retail lower-body mannequin, waist to knees. Straight front view. Entire garment fully visible including hem and waistband, centered with generous empty margin. Seamless light warm gray studio background, soft diffused light, realistic textile texture. Mannequin is visibly artificial ivory plastic, no human skin. No people, no face, no logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-002-preta-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph of MEN'S black skinny fit jeans displayed on an unmistakably MASCULINE retail lower body mannequin. Masculine menswear tailoring: straight broad waistband, narrow hips relative to waist, long front rise, proper men's fly and crotch construction, substantial masculine thighs and calves, skinny tapered leg but NOT leggings. A male athletic mannequin with straight hips, no hourglass waist, no feminine pelvis, no curvy female silhouette. Clearly artificial matte ivory plastic display mannequin, waist to feet. Straight front view, waist and entire jeans fully visible including hem, generous margin, centered portrait 3:4. Plain five pocket denim construction, unbranded metal hardware, black denim throughout. Seamless light warm gray studio background, soft diffused lighting, realistic denim weave. No people, human skin, faces, logos, branding, tags, letters, text or watermark. Generic original men's garment."
+    },
+    {
+      "file": "prod-002-preta-back.webp",
+      "prompt": "Use case: product-mockup. Second catalog photograph of EXACTLY the same MEN'S skinny fit jeans on EXACTLY the same MASCULINE visibly artificial matte ivory retail mannequin as in the reference. Camera change only to rear three-quarter view showing back pockets and side. Preserve masculine body proportions: straight narrow male hips, substantial thighs and calves, broad straight waistband, men's tailoring and longer rise. Do not feminize the mannequin or jeans. Preserve exact denim color, seams, slim tapered cut and unbranded hardware. Entire jeans visible from waist to hems with generous margin, centered portrait 3:4, same light warm gray seamless studio backdrop and soft lighting. No humans, skin, faces, logos, labels, brands, writing or watermark."
+    },
+    {
+      "file": "prod-001-branca-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same garment on exactly the same visibly artificial ivory retail mannequin as the reference image. Change the camera to a rear three-quarter view showing the back and side. Preserve garment color, material, cut, dimensions, hardware, mannequin material, light warm gray seamless background and soft studio lighting. Entire garment fully visible with generous margin. No humans, skin, face, branding, logos, labels, letters or watermark. Portrait 3:4."
+    },
+    {
+      "file": "prod-003-verde-oliva-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same garment on exactly the same visibly artificial ivory retail mannequin as the reference image. Change the camera to a rear three-quarter view showing the back and side. Preserve garment color, material, cut, dimensions, hardware, mannequin material, light warm gray seamless background and soft studio lighting. Entire garment fully visible with generous margin. No humans, skin, face, branding, logos, labels, letters or watermark. Portrait 3:4."
+    },
+    {
+      "file": "prod-003-caqui-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same garment on exactly the same visibly artificial ivory retail mannequin as the reference image. Change the camera to a rear three-quarter view showing the back and side. Preserve garment color, material, cut, dimensions, hardware, mannequin material, light warm gray seamless background and soft studio lighting. Entire garment fully visible with generous margin. No humans, skin, face, branding, logos, labels, letters or watermark. Portrait 3:4."
+    },
+    {
+      "file": "prod-002-azul-escuro-back.webp",
+      "prompt": "Use case: product-mockup. Second catalog photograph of EXACTLY the same MEN'S skinny fit jeans on EXACTLY the same MASCULINE visibly artificial matte ivory retail mannequin as in the reference. Camera change only to rear three-quarter view showing back pockets and side. Preserve masculine body proportions: straight narrow male hips, substantial thighs and calves, broad straight waistband, men's tailoring and longer rise. Do not feminize the mannequin or jeans. Preserve exact denim color, seams, slim tapered cut and unbranded hardware. Entire jeans visible from waist to hems with generous margin, centered portrait 3:4, same light warm gray seamless studio backdrop and soft lighting. No humans, skin, faces, logos, labels, brands, writing or watermark."
+    },
+    {
+      "file": "prod-004-branco-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: pair of plain white low top casual leather sneakers with white laces and flat white soles, displayed on no mannequin, freestanding product pair. Front three-quarter view for shoes and belt, straight front view for shirts. Entire product fully visible with generous margin, centered. Seamless light warm gray studio background, soft diffused light, realistic materials. Where present mannequin is visibly artificial matte ivory plastic, no skin. No people, face, logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-005-marrom-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: plain medium brown leather belt with simple rectangular brushed silver buckle, no engraving, displayed on no mannequin, coiled freestanding product. Front three-quarter view for shoes and belt, straight front view for shirts. Entire product fully visible with generous margin, centered. Seamless light warm gray studio background, soft diffused light, realistic materials. Where present mannequin is visibly artificial matte ivory plastic, no skin. No people, face, logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-004-preto-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: pair of plain black low top casual leather sneakers with black laces and flat black soles, displayed on no mannequin, freestanding product pair. Front three-quarter view for shoes and belt, straight front view for shirts. Entire product fully visible with generous margin, centered. Seamless light warm gray studio background, soft diffused light, realistic materials. Where present mannequin is visibly artificial matte ivory plastic, no skin. No people, face, logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-006-preta-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: plain solid black short sleeve cotton crew neck t-shirt, displayed on headless matte ivory retail torso mannequin. Front three-quarter view for shoes and belt, straight front view for shirts. Entire product fully visible with generous margin, centered. Seamless light warm gray studio background, soft diffused light, realistic materials. Where present mannequin is visibly artificial matte ivory plastic, no skin. No people, face, logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-005-preto-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: plain black leather belt with simple rectangular brushed silver buckle, no engraving, displayed on no mannequin, coiled freestanding product. Front three-quarter view for shoes and belt, straight front view for shirts. Entire product fully visible with generous margin, centered. Seamless light warm gray studio background, soft diffused light, realistic materials. Where present mannequin is visibly artificial matte ivory plastic, no skin. No people, face, logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-006-branca-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: plain solid white short sleeve cotton crew neck t-shirt, displayed on headless matte ivory retail torso mannequin. Front three-quarter view for shoes and belt, straight front view for shirts. Entire product fully visible with generous margin, centered. Seamless light warm gray studio background, soft diffused light, realistic materials. Where present mannequin is visibly artificial matte ivory plastic, no skin. No people, face, logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-006-cinza-front.webp",
+      "prompt": "Use case: product-mockup. One original photorealistic ecommerce catalog photograph, portrait 3:4. Subject: plain heather medium gray short sleeve cotton crew neck t-shirt, displayed on headless matte ivory retail torso mannequin. Front three-quarter view for shoes and belt, straight front view for shirts. Entire product fully visible with generous margin, centered. Seamless light warm gray studio background, soft diffused light, realistic materials. Where present mannequin is visibly artificial matte ivory plastic, no skin. No people, face, logos, brand signatures, labels, letters, text or watermark. Generic original design."
+    },
+    {
+      "file": "prod-004-branco-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same product as in the reference, preserving its exact color, construction, materials and design. For sneakers: rear three-quarter view of the pair showing the heel and side. For belt: rearrange the same belt in a loose open oval viewed slightly from above, the entire belt and plain buckle visible. Do not add any mannequin. Keep light warm gray seamless studio background, soft diffused light, portrait 3:4 composition, entire product in frame with generous margin. No people, human skin, faces, logos, brands, labels, text, letters or watermarks."
+    },
+    {
+      "file": "prod-005-marrom-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same product as in the reference, preserving its exact color, construction, materials and design. For sneakers: rear three-quarter view of the pair showing the heel and side. For belt: rearrange the same belt in a loose open oval viewed slightly from above, the entire belt and plain buckle visible. Do not add any mannequin. Keep light warm gray seamless studio background, soft diffused light, portrait 3:4 composition, entire product in frame with generous margin. No people, human skin, faces, logos, brands, labels, text, letters or watermarks."
+    },
+    {
+      "file": "prod-004-preto-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same product as in the reference, preserving its exact color, construction, materials and design. For sneakers: rear three-quarter view of the pair showing the heel and side. For belt: rearrange the same belt in a loose open oval viewed slightly from above, the entire belt and plain buckle visible. Do not add any mannequin. Keep light warm gray seamless studio background, soft diffused light, portrait 3:4 composition, entire product in frame with generous margin. No people, human skin, faces, logos, brands, labels, text, letters or watermarks."
+    },
+    {
+      "file": "prod-006-preta-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same product as in the reference, preserving its exact color, construction, materials and design. Rear three-quarter view of exactly the same t-shirt on exactly the same visibly artificial ivory plastic headless retail mannequin, showing back and side. Keep light warm gray seamless studio background, soft diffused light, portrait 3:4 composition, entire product in frame with generous margin. No people, human skin, faces, logos, brands, labels, text, letters or watermarks."
+    },
+    {
+      "file": "prod-005-preto-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same product as in the reference, preserving its exact color, construction, materials and design. For sneakers: rear three-quarter view of the pair showing the heel and side. For belt: rearrange the same belt in a loose open oval viewed slightly from above, the entire belt and plain buckle visible. Do not add any mannequin. Keep light warm gray seamless studio background, soft diffused light, portrait 3:4 composition, entire product in frame with generous margin. No people, human skin, faces, logos, brands, labels, text, letters or watermarks."
+    },
+    {
+      "file": "prod-006-branca-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same product as in the reference, preserving its exact color, construction, materials and design. Rear three-quarter view of exactly the same t-shirt on exactly the same visibly artificial ivory plastic headless retail mannequin, showing back and side. Keep light warm gray seamless studio background, soft diffused light, portrait 3:4 composition, entire product in frame with generous margin. No people, human skin, faces, logos, brands, labels, text, letters or watermarks."
+    },
+    {
+      "file": "prod-006-cinza-back.webp",
+      "prompt": "Use case: product-mockup. Create a second ecommerce catalog photograph of exactly the same product as in the reference, preserving its exact color, construction, materials and design. Rear three-quarter view of exactly the same t-shirt on exactly the same visibly artificial ivory plastic headless retail mannequin, showing back and side. Keep light warm gray seamless studio background, soft diffused light, portrait 3:4 composition, entire product in frame with generous margin. No people, human skin, faces, logos, brands, labels, text, letters or watermarks."
+    }
+  ]
+}

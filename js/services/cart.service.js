@@ -2,10 +2,20 @@ import { storage, CONSTANTS } from '../utils/storage.js';
 import { findCoupon, isCouponEligible, getCouponRequirementMessage, appliesDiscountToTotal } from '../domain/coupon-rules.js';
 import { getVariantAvailability } from '../domain/product-availability.js';
 import { products } from '../data/products.js';
+import { getProductImages } from '../domain/product-images.js';
 
 class CartService {
     getCart() {
-        return storage.get(CONSTANTS.CART_KEY) || { items: [], coupon: null };
+        const cart = storage.get(CONSTANTS.CART_KEY) || { items: [], coupon: null };
+        // Atualiza também imagens de carrinhos salvos antes das variantes.
+        cart.items = cart.items.map(item => {
+            const product = products.find(product => product.id === item.productId);
+            return product ? {
+                ...item,
+                image: getProductImages(product, item.color)[0]
+            } : item;
+        });
+        return cart;
     }
 
     saveCart(cart) {
@@ -36,7 +46,7 @@ class CartService {
                 productId,
                 title: product.title,
                 price: product.price,
-                image: product.images[0],
+                image: getProductImages(product, color)[0],
                 size,
                 color,
                 quantity: 1
