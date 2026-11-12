@@ -18,11 +18,11 @@ export const products = [
         title: "Calça Jeans Skinny",
         description: "Calça jeans com elastano e lavagem escura.",
         category: "Calças",
-        price: 129.90,
+        price: 129.00,
         pricesBySize: {
-            "38": 129.90, "40": 134.90, "42": 139.90, "44": 144.90,
-            "46": 149.90, "48": 154.90,
-            G1: 164.90, G2: 174.90, G3: 184.90, G4: 194.90
+            "38": 129.00, "40": 129.00, "42": 129.00, "44": 129.00,
+            "46": 135.00, "48": 135.00,
+            G1: 140.00, G2: 140.00, G3: 140.00, G4: 140.00
         },
         images: ["assets/images/products/prod-002-azul-escuro-front.webp", "assets/images/products/prod-002-azul-escuro-back.webp"],
         imagesByColor: {
