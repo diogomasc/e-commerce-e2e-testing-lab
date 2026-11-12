@@ -1,12 +1,12 @@
 # E-Commerce E2E Testing Laboratory 🛒
 
-Bem-vindo ao repositório do **E-commerce E2E Test**, uma aplicação puramente desenvolvida em **Vanilla JavaScript** (ES6+), **HTML5** e **CSS3**, focada em servir como ambiente base, limpo e determinístico para testes End-to-End (E2E) com frameworks como Cypress, Playwright ou Selenium.
+O **E-commerce E2E Test**, é uma aplicação puramente desenvolvida em **Vanilla JavaScript** (ES6+), **HTML5** e **CSS3**, focada em servir como ambiente base, limpo e determinístico para testes End-to-End (E2E) com frameworks como Cypress, Playwright ou Selenium.
 
-O maior objetivo desse projeto é simular os cenários do mundo real de uma loja, sem a complexidade ou instabilidade de ambientes servidos por API, utilizando estritamente o `LocalStorage` do navegador e Data Mocks para controle de estado, persistência de banco de dados e mutações.
+O objetivo é praticar **testes de caixa preta** em cenários de uma loja: navegar, preencher formulários, comprar e conferir os resultados apresentados ao usuário. A aplicação inclui bugs intencionais para exercitar a descoberta e o registro de defeitos. Os testes devem interagir com a interface e verificar comportamentos observáveis, sem depender da implementação interna.
 
 ---
 
-## 🎯 Escopo e Proposta do Projeto (Curiosidades)
+## 🎯 Escopo e Proposta do Projeto
 
 Apesar de ser um e-commerce aparentemente funcional de ponta a ponta, é crucial entender as limitações intencionais da arquitetura:
 
@@ -17,85 +17,7 @@ Apesar de ser um e-commerce aparentemente funcional de ponta a ponta, é crucial
 
 ---
 
-## 🛠 Entendendo as Tecnologias
-
-- **Nenhum Framework Frontend:** Ausência completa de bibliotecas como React, Vue, jQuery ou TailwindCSS. Apenas as camadas puras da Web.
-- **Armazenamento Local:** As chaves principais utilizadas para testar estados no Storage são:
-  - `e2e_cart`: Controle de itens do carrinho ativo.
-  - `e2e_users`: Histórico de contas criadas artificialmente local.
-  - `e2e_orders`: Base de dados dos pedidos finalizados.
-  - `e2e_current_user`: Status da sessão do login atual.
-- **Testes Mapeados:** A Interface Gráfica é massivamente anotada com atributos `data-testid="X"`, garantindo seletores resilientes e à prova de refatorações de design.
-
----
-
-## 💡 Como testar o LocalStorage no Cypress?
-
-Testar aplicações baseadas no Vanilla JS exigem que você domine o estado de armazenamento do navegador.
-Como o LocalStorage persiste os dados mesmo após recarregamentos da página, o **Cypress** intencionalmente o limpa **entre cada teste (`it`)** para garantir que cada cenário seja independente e sem poluições de estados anteriores.
-
-Embora o Cypress forneça o comando `cy.clearLocalStorage()`, ele não possui um `cy.getLocalStorage()` nativo. Por isso, utilizamos o `cy.window()` para acessar a API nativa do navegador ou criamos nossos próprios Custom Commands.
-
-Portanto, em cenários onde precisamos manter um usuário logado ("hydrated") ou analisar um estado gerado (ex: o preço total gerado após manipular o carrinho de compras), uma ótima estratégia é interagir fisicamente com a janela (Window) do browser local, da seguinte forma:
-
-```javascript
-// Exemplo prático validando o ID de um pedido recém-criado em um teste do Cypress
-describe("Finalização de Pedido", () => {
-  it("deve armazenar os dados do pedido recém criado corretamente", () => {
-    // 1. Simule e preencha as ações de sua UI ...
-    cy.get('[data-testid="checkout-submit"]').click();
-
-    // 2. Aguarde a interface reagir (Assincronismo)
-    // Dica de Ouro: Garanta que a ação de salvar no storage terminou esperando um elemento visual mudar antes de ler a API!
-    cy.url().should("include", "success.html");
-
-    // 3. Acesse as APIs da Web locais (window.localStorage)
-    cy.window().then((win) => {
-      // 4. Capture o storage (retorna string)
-      const storageOrdersRaw = win.localStorage.getItem("e2e_orders");
-
-      // 5. Converta e execute sua Asserção!
-      const orders = JSON.parse(storageOrdersRaw);
-      expect(orders).to.be.an("array").that.is.not.empty;
-
-      const lastOrder = orders[orders.length - 1];
-      expect(lastOrder).to.have.property("status", "processing");
-      expect(lastOrder).to.have.property("total");
-    });
-  });
-});
-```
-
-### Dicas para a Automação:
-
-1. **Refatoração (Custom Commands):** Para tornar o código mais limpo e legível dentro dos seus `it`s, você pode isolar a verbosidade em um comando customizado criando no seu `support/commands.js`:
-
-   ```javascript
-   Cypress.Commands.add("getLocalStorage", (key) => {
-     return cy.window().then((win) => {
-       return JSON.parse(win.localStorage.getItem(key));
-     });
-   });
-
-   // Uso no teste:
-   cy.getLocalStorage("e2e_orders").then((orders) => {
-     expect(orders).to.not.be.empty;
-   });
-   ```
-
-2. **Persistência entre Testes (Testes Longos):** Se for absolutamente necessário testar um fluxo sequencial contínuo (ex: `it` 1 faz login, `it` 2 adiciona item, `it` 3 paga), o Cypress vai limpar o Storage. Você pode contornar isso utilizando a abordagem oficial e moderna com [cy.session()](https://docs.cypress.io/api/commands/session) que guarda e restaura sessões. Outra vertente adotada pela comunidade é utilizar o plugin auxiliar [cypress-localstorage-commands](https://www.npmjs.com/package/cypress-localstorage-commands) injetando comandos vitais como `cy.saveLocalStorage()` e `cy.restoreLocalStorage()`.
-
-> **Dica de Leitura:** Para atender um pouco mais como ler e gerenciar o localStorage, recomendamos o artigo: [Como ler o localStorage com Cypress (Talking About Testing)](https://talkingabouttesting.com/2021/03/02/como-ler-o-localstorage-do-navegador-com-cypress/).
-
-> **Documentação Oficial do Cypress:** [docs.cypress.io](https://docs.cypress.io/app/get-started/why-cypress)
-
-### 🏃‍♂️ Executando seu Cypress:
-
-Lembre-se: Após mapear sua base, você pode assistir os testes ocorrendo ativamente através do comando `npx cypress open` ou rodá-los em modo invisível (headless) na sua esteira de CI/CD utilizando `npx cypress run`.
-
----
-
-## 📂 Organização do Projeto
+## 📂 Organização do Projeto e Tecnologias
 
 A arquitetura foi segregada baseada no design modular MVC, onde `js/services` atuam como "backend fake" para cada controle de tela:
 
@@ -114,31 +36,362 @@ A arquitetura foi segregada baseada no design modular MVC, onde `js/services` at
 │   └── utils/        # Facades de comodidade geral do código (Validadores e Parsing Format).
 ```
 
+- **Nenhum Framework Frontend:** Ausência completa de bibliotecas como React, Vue, jQuery ou TailwindCSS. Apenas as camadas puras da Web.
+- **Testes Mapeados:** A Interface Gráfica é massivamente anotada com atributos `data-testid="X"`, garantindo seletores resilientes e à prova de refatorações de design.
+
 ---
 
-## 🚀 Como Executar Localmente
+## Como Executar Localmente
 
-Não existe a necessidade de rodar processos no NodeJS ou instalação pelo npm. Esta é uma aplicação puramente estática, o que torna sua hospedagem muito fácil.
+A loja é uma aplicação estática e não exige build nem instalação de dependências pelo npm. Siga os passos abaixo para abri-la no seu computador.
 
-Você pode acessá-la em produção através do GitHub Pages em: **[https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/](https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/)**
+### 1. Clone o projeto e entre na pasta
 
-**Para executar localmente:**
+Com o **Git instalado**, abra o terminal na pasta em que deseja guardar o projeto e execute:
 
-1. Faça o clone ou localize o projeto no seu computador.
-2. É altamente recomendado utilizar um **Live Server** (extensão do VS Code ou servidor HTTP simples como o Web Server for Chrome ou npx http-server) devido às requisições de módulos ES6 `import/export`.
-3. Abra a porta fornecida pelo seu servidor apontando diretamente no arquivo `/index.html`.
+```bash
+git clone https://github.com/diogomasc/E-Commerce-E2E-Testing-Laboratory.git
+cd E-Commerce-E2E-Testing-Laboratory
+```
 
-### Rotinas e Pistas para o QA (Quality Assurance)
+O primeiro comando baixa o repositório; o segundo entra na pasta do projeto.
 
-Se o propósito desta plataforma é a montagem de seu repositório de testes com UI, repare nos arquivos de código e inspecione a DOM de seu navegador base:
+### 2. Abra a pasta no VS Code
 
-- Existe uma variação massiva nos tamanhos de limitações físicas e máscaras da UX do Checkout (`CPF` converte ponto a ponto e te poda, número de cartão idem).
-- Na página de **Registrar**, tente provocar submissões nulas e teste o seu framework avaliando cores e visibilidades de classes `.form-error` injetadas dinamicamente.
-- Faça testes para forçarem os cupons de Descontos pre-cadastrados, validando se são responsivos às variações de tamanho de carrinho (Ex: DESCONTO10 requere X compras e não funciona sozinho).
-- **Bug Intencional (CPF):** A validação base de CPF permite o preenchimento e aceitação de um CPF formatado com números iguais (ex: `111.111.111-11`), ideal para testes de falsos-positivos na validação.
-- **Bug Intencional (Cálculo de Desconto):** Ao aplicar um cupom de desconto no carrinho, a interface exibe que o desconto foi aplicado na UI, mas o valor deduzido é ignorado no gatilho de "Total Pago" sendo cobrado o valor cheio do checkout.
+No mesmo terminal, execute:
 
-Aproveite este projeto como seu playground seguro!
+```bash
+code .
+```
+
+Se o comando `code` não estiver disponível, abra o VS Code e selecione **Arquivo > Abrir Pasta**, escolhendo a pasta `E-Commerce-E2E-Testing-Laboratory`. Confira se o arquivo `index.html` aparece no painel lateral.
+
+### 3. Instale a extensão Live Server
+
+Abra **Extensões** (`Ctrl+Shift+X`), procure **Live Server**, de **Ritwick Dey**, e clique em **Instalar**.
+
+### 4. Inicie o servidor
+
+Clique com o botão direito em `index.html` e selecione **Open with Live Server**. O navegador abrirá a loja em um endereço semelhante a:
+
+```text
+http://localhost:5500/index.html
+```
+
+A porta pode variar: use o endereço aberto pelo Live Server. Acesse a aplicação pelo servidor HTTP para carregar corretamente os módulos JavaScript (`import/export`).
+
+### 5. Explore a loja
+
+Acesse o catálogo, abra um produto e visite as telas de login e cadastro. Mantenha o Live Server ativo durante a exploração. Para encerrá-lo, clique no indicador da porta na barra inferior do VS Code.
+
+### 6. Configure o endereço nos testes
+
+Quando preparar seu projeto de automação, use o endereço local como `baseUrl`, sem `/index.html`:
+
+```javascript
+baseUrl: "http://localhost:5500";
+```
+
+Os passos para instalar e configurar o Cypress estão na seção **Primeiros passos com Cypress**, a seguir. Mantenha o servidor ativo enquanto executa os testes contra a loja local.
+
+Também é possível explorar a [loja publicada no GitHub Pages](https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/) sem iniciar um servidor no computador.
+
+### Rotinas e Pistas para o QA
+
+Comece por uma compra completa: escolha um produto, selecione tamanho e cor, adicione ao carrinho e avance até a confirmação. Depois, repita o caminho variando os dados e as escolhas. Compare mensagens, valores e navegação com o resultado esperado em cada etapa.
+
+Use as regras dos cupons e as pistas abaixo para criar seus cenários e investigar possíveis inconsistências pela interface.
+
+#### Cupons disponíveis
+
+Abra cada bloco para consultar o desconto e a condição de aplicação. Os descontos são **valores fixos em reais**, calculados sobre o subtotal dos produtos antes do desconto.
+
+<details>
+<summary>DESCONTO10 — desconto e valor mínimo</summary>
+
+- **Desconto esperado:** R$ 10,00.
+- **Subtotal mínimo:** R$ 70,00. Esse valor já atende à condição de uso.
+
+</details>
+
+<details>
+<summary>DESCONTO20 — desconto e valor mínimo</summary>
+
+- **Desconto esperado:** R$ 20,00.
+- **Subtotal mínimo:** R$ 100,00. Esse valor já atende à condição de uso.
+
+</details>
+
+<details>
+<summary>DESCONTO30 — desconto e valor mínimo</summary>
+
+- **Desconto esperado:** R$ 30,00.
+- **Condição:** subtotal acima de R$ 150,00, ou seja, a partir de R$ 150,01. Exatamente R$ 150,00 não atende à regra.
+
+</details>
+
+<details>
+<summary>DESCONTO40 — desconto e valor mínimo</summary>
+
+- **Desconto esperado:** R$ 40,00.
+- **Condição:** subtotal acima de R$ 200,00, ou seja, a partir de R$ 200,01. Exatamente R$ 200,00 não atende à regra.
+
+</details>
+
+<details>
+<summary>DESCONTO50 — desconto e valor mínimo</summary>
+
+- **Desconto esperado:** R$ 50,00.
+- **Condição:** subtotal acima de R$ 250,00, ou seja, a partir de R$ 250,01. Exatamente R$ 250,00 não atende à regra.
+
+</details>
+
+#### Pistas para explorar a loja
+
+- **Carrinho → cupom → checkout → confirmação:** experimente cada cupom e acompanhe subtotal, desconto e total. Os valores continuam coerentes até o final da compra?
+- **Limites dos cupons:** teste subtotais abaixo, exatamente no limite e acima da condição de uso. Após aplicar um cupom, altere quantidades ou remova produtos. Como a loja reage quando o carrinho deixa de atender à regra?
+- **Checkout → CPF:** explore formatos, quantidade de dígitos e sequências repetidas. Preencher a máscara é suficiente para representar um documento válido?
+- **Checkout → CEP:** experimente letras, pontuação e valores curtos ou longos. Mantenha os demais campos válidos e observe as mensagens ao tentar avançar.
+- **Produto → tamanho e cor → carrinho:** explore as opções riscadas da **Bermuda Cargo** e da **Calça Jeans Skinny**. Compare os avisos com o resultado de adicionar o item e acompanhe o fluxo até o checkout.
+- **Cadastro e login:** envie campos vazios, explore limites de caracteres, use senhas diferentes na confirmação e tente cadastrar um e-mail já utilizado. As mensagens orientam a correção? A navegação corresponde ao resultado esperado?
+
+Nos testes automatizados, use os atributos `data-testid` para localizar elementos e confira os resultados visíveis ao usuário. Ao encontrar uma divergência, registre os passos, os dados utilizados, o resultado esperado e o resultado obtido para permitir a reprodução.
+
+---
+
+## 🧪 Primeiros passos com Cypress
+
+O roteiro abaixo prepara um **projeto separado de automação** para testar a loja publicada no GitHub Pages. Não é necessário clonar ou alterar o código da aplicação para começar.
+
+### 1. Configurando o Ambiente
+
+Tenha instalado:
+
+- **Node.js 22 ou supeior**, com npm. Confira os [requisitos oficiais do Cypress](https://docs.cypress.io/app/get-started/install-cypress#System-requirements) para a versão utilizada e as dependências do seu sistema operacional.
+- **Visual Studio Code**, para editar os testes.
+- Acesso à internet para instalar o Cypress e acessar a loja publicada.
+
+No terminal, confira as instalações:
+
+```bash
+node --version
+npm --version
+```
+
+Crie a pasta dos testes e inicialize o projeto JavaScript:
+
+```bash
+mkdir e-commerce-cypress
+cd e-commerce-cypress
+npm init -y
+```
+
+Abra essa pasta no VS Code pelo menu **Arquivo > Abrir Pasta** ou execute `code .`, caso o comando esteja disponível no seu terminal.
+
+### 2. Instalando o Cypress
+
+Na raiz do projeto de automação, execute:
+
+```bash
+npm install cypress --save-dev
+```
+
+O Cypress será registrado em `devDependencies` no `package.json`. Mantenha também o `package-lock.json` no repositório para reproduzir a instalação das dependências.
+
+Se a instalação informar que o script de download do binário foi bloqueado pelo npm, siga as [instruções oficiais para npm](https://docs.cypress.io/app/get-started/install-cypress#npm-configuration).
+
+### 3. Configurando Scripts Personalizados no `package.json`
+
+No `package.json`, ajuste a propriedade `scripts`, preservando as demais propriedades do arquivo:
+
+```json
+{
+  "scripts": {
+    "cy:open": "cypress open",
+    "cy:run": "cypress run"
+  }
+}
+```
+
+Use `npm run cy:open` para abrir a interface do Cypress e `npm run cy:run` para executar os testes em modo headless, sem abrir a interface interativa.
+
+### 4. Primeira Inicialização e Criação dos Arquivos Padrão
+
+Execute:
+
+```bash
+npm run cy:open
+```
+
+1. Na tela inicial, selecione **E2E Testing**.
+2. Confira os arquivos de configuração propostos e clique em **Continue**.
+3. Escolha um navegador disponível e clique em **Start E2E Testing**.
+4. Selecione **Create new spec** para criar seu primeiro arquivo em `cypress/e2e/`.
+
+Para este roteiro, crie `login.cy.js` e `cadastro.cy.js` e substitua o conteúdo inicial pelos exemplos abaixo. A estrutura ficará assim:
+
+```text
+e-commerce-cypress/
+├── cypress/
+│   ├── e2e/
+│   │   ├── login.cy.js
+│   │   └── cadastro.cy.js
+│   ├── fixtures/          # Dados auxiliares, quando necessários
+│   └── support/
+│       ├── commands.js   # Comandos personalizados
+│       └── e2e.js        # Configuração de suporte dos testes E2E
+├── cypress.config.js
+├── package.json
+└── package-lock.json
+```
+
+### 5. Reconhecimento do JavaScript no VS Code (opcional)
+
+Se o VS Code não reconhecer o projeto JavaScript ou não sugerir os comandos do Cypress, crie o arquivo **`jsconfig.json` na raiz do projeto de automação**, com o conteúdo:
+
+```json
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "lib": ["es2022", "dom"],
+    "types": ["cypress"]
+  },
+  "include": ["**/*.*"]
+}
+```
+
+### 6. Configurando nossa `baseUrl`
+
+Você pode passar a URL completa para comandos de navegação, como:
+
+```javascript
+cy.visit(
+  "https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory/register.html",
+);
+```
+
+Configurar a **`baseUrl`** no arquivo `cypress.config.js` facilita:
+
+1. **Flexibilidade:** trocar entre ambientes local, homologação e produção alterando a URL em um único ponto.
+2. **Código limpo:** usar caminhos relativos, como `cy.visit('/register.html')`.
+3. **Inicialização:** permitir que o Cypress conheça o domínio da aplicação antes da primeira navegação e verifique sua disponibilidade.
+
+Abra o arquivo `cypress.config.js` na raiz do projeto de automação e ajuste para:
+
+```javascript
+const { defineConfig } = require("cypress");
+
+module.exports = defineConfig({
+  e2e: {
+    baseUrl: "https://diogomasc.github.io/E-Commerce-E2E-Testing-Laboratory",
+    setupNodeEvents(on, config) {
+      // Listeners de eventos do Node, quando necessários.
+    },
+  },
+});
+```
+
+Esse exemplo usa CommonJS, compatível com o projeto criado por `npm init -y`. Se seu `package.json` já tiver `"type": "module"`, use o nome `cypress.config.cjs` para manter essa sintaxe.
+
+Para testar a aplicação localmente, inicie o servidor HTTP da loja e substitua a `baseUrl` pelo endereço fornecido por ele, por exemplo, `http://localhost:5500`.
+
+### 7. Acessando uma URL
+
+Para navegar até uma página web, usamos o comando **`cy.visit()`**. No arquivo `cypress/e2e/cadastro.cy.js`, comece com:
+
+```javascript
+describe("Feature: Registro de Usuário", () => {
+  it("Acessa a página de registro", () => {
+    // Como a baseUrl foi definida, basta passar o caminho relativo.
+    cy.visit("/register.html");
+    cy.get('[data-testid="register-title"]')
+      .should("be.visible")
+      .and("contain.text", "Criar Conta");
+  });
+});
+```
+
+### 8. Primeiro arquivo de teste: login
+
+No arquivo `cypress/e2e/login.cy.js`, adicione os cenários de login válido e envio com campos vazios. O primeiro usa a conta de demonstração da loja e mostra como encadear comandos: `cy.get()` localiza o campo, `.type()` preenche e `.should()` verifica o valor.
+
+```javascript
+describe("Feature: Login", () => {
+  beforeEach(() => {
+    // 1. cy.visit() navega até a página antes de cada teste.
+    cy.visit("/login.html");
+  });
+
+  it("Exibe os campos obrigatórios ao enviar o formulário vazio", () => {
+    cy.get('[data-testid="login-submit"]').click();
+
+    cy.get('[data-testid="login-email-error"]')
+      .should("be.visible")
+      .and("contain.text", "Campo obrigatório");
+    cy.get('[data-testid="login-password-error"]')
+      .should("be.visible")
+      .and("contain.text", "Campo obrigatório");
+    cy.location("pathname").should("include", "/login.html");
+  });
+
+  it("Permite entrar com um usuário válido", () => {
+    // 2. cy.get() busca o input.
+    // 3. .type() digita o valor nele.
+    // 4. .should() valida seu valor final.
+    cy.get('[data-testid="login-email"]')
+      .type("test@example.com")
+      .should("have.value", "test@example.com");
+
+    cy.get('[data-testid="login-password"]')
+      .type("password123")
+      .should("have.value", "password123");
+
+    // .click() clica no botão para submeter o login.
+    cy.get('[data-testid="login-submit"]').click();
+
+    // A aplicação autentica o usuário e redireciona para a página inicial.
+    cy.url().should("include", "/index.html");
+
+    // Valida o cabeçalho e a saudação com o nome do usuário autenticado.
+    cy.get('[data-testid="main-header"]')
+      .should("be.visible")
+      .find('[data-testid="user-greeting"]')
+      .should("be.visible")
+      .and("have.text", "Olá, Test");
+  });
+});
+```
+
+Os exemplos usam `data-testid` para localizar elementos e conferem resultados visíveis ao usuário. Cada teste prepara seu próprio cenário; mantenha o isolamento padrão do Cypress e evite depender de outro `it` para fazer login ou cadastrar uma conta.
+
+### 10. Executando os primeiros testes
+
+Abra a interface e selecione `login.cy.js` ou `cadastro.cy.js` na lista de specs:
+
+```bash
+npm run cy:open
+```
+
+Para executar todos os testes pelo terminal:
+
+```bash
+npm run cy:run
+```
+
+Para executar somente o arquivo de login:
+
+```bash
+npm run cy:run -- --spec "cypress/e2e/login.cy.js"
+```
+
+Continue praticando com cenários de credenciais inválidas, confirmação de senha diferente, e-mail já cadastrado e regras do carrinho. Defina o resultado esperado a partir das regras do produto: os bugs intencionais são oportunidades para encontrar falhas, não comportamentos que os testes devem aceitar como corretos.
+
+Material complementar:
+
+- [Documentação oficial do Cypress](https://docs.cypress.io/).
+- [Material de Estudo: Introdução à Qualidade de Software e Testes Automatizados de Caixa-Preta em Interfaces com Cypress](https://app.notion.com/p/Introdu-o-Qualidade-de-Software-e-Testes-Automatizados-de-Caixa-Preta-em-Interfaces-com-Cypress-3dd7f810616e801c923dd96c3873722c#3de7f810616e80239152d952370df843)
+
+---
 
 ### Prints (Pode estar levemente desatualizado)
 
