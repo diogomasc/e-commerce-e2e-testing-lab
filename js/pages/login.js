@@ -1,3 +1,4 @@
+import { validateNativeFields } from '../utils/form-validation.js';
 import { authService } from '../services/auth.service.js';
 
 class LoginPage {
@@ -23,22 +24,8 @@ class LoginPage {
             e.preventDefault();
             this.clearErrors();
 
-            let isFormValid = true;
-
-            Array.from(this.form.elements).forEach(el => {
-                if (el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') return;
-
-                if (el.checkValidity && !el.checkValidity()) {
-                    isFormValid = false;
-                    let msg = 'Campo inválido';
-                    if (el.validity.valueMissing) {
-                        msg = 'Campo obrigatório';
-                    } else if (el.validity.typeMismatch && el.type === 'email') {
-                        msg = 'E-mail inválido. Formato esperado: email@dominio.com';
-                    }
-                    let errorEl = document.getElementById(`${el.id}-error`);
-                    this.showError(el, errorEl, msg);
-                }
+            let isFormValid = validateNativeFields(this.form, (field, message) => {
+                this.showError(field, document.getElementById(`${field.id}-error`), message);
             });
 
             const email = this.emailInput.value.trim();

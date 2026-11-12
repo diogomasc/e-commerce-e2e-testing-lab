@@ -1,3 +1,4 @@
+import { validateNativeFields } from '../utils/form-validation.js';
 import { authService } from '../services/auth.service.js';
 import { validation } from '../utils/validation.js';
 
@@ -35,24 +36,9 @@ class RegisterPage {
             e.preventDefault();
             this.clearErrors(inputs);
 
-            let hasError = false;
-
-            Array.from(this.form.elements).forEach(el => {
-                if (el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') return;
-
-                if (el.checkValidity && !el.checkValidity()) {
-                    hasError = true;
-                    let msg = 'Campo inválido';
-                    if (el.validity.valueMissing) {
-                        msg = 'Campo obrigatório';
-                    } else if (el.validity.typeMismatch && el.type === 'email') {
-                        msg = 'E-mail inválido. Formato esperado: email@dominio.com';
-                    } else if (el.validity.tooShort) {
-                        msg = `Mínimo de ${el.minLength} caracteres`;
-                    }
-                    this.showError(el.id, msg);
-                }
-            });
+            let hasError = !validateNativeFields(this.form, (field, message) => {
+                this.showError(field.id, message);
+            }, { reportTooShort: true });
             
             const firstname = document.getElementById('register-firstname').value.trim();
             const lastname = document.getElementById('register-lastname').value.trim();

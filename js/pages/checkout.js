@@ -1,3 +1,4 @@
+import { validateNativeFields } from '../utils/form-validation.js';
 import { authService } from '../services/auth.service.js';
 import { cartService } from '../services/cart.service.js';
 import { orderService } from '../services/order.service.js';
@@ -79,22 +80,9 @@ class CheckoutPage {
             e.preventDefault();
             this.clearErrors();
 
-            let isFormValid = true;
-
-            Array.from(this.form.elements).forEach(el => {
-                if (el.tagName !== 'INPUT' && el.tagName !== 'SELECT' && el.tagName !== 'TEXTAREA') return;
-
-                if (el.checkValidity && !el.checkValidity()) {
-                    isFormValid = false;
-                    let msg = 'Campo inválido';
-                    if (el.validity.valueMissing) {
-                        msg = 'Campo obrigatório';
-                    } else if (el.validity.typeMismatch && el.type === 'email') {
-                        msg = 'E-mail inválido.';
-                    }
-                    this.showError(el.id, msg);
-                }
-            });
+            let isFormValid = validateNativeFields(this.form, (field, message) => {
+                this.showError(field.id, message);
+            }, { emailMessage: 'E-mail inválido.' });
 
             if (!this.validateForm()) {
                 isFormValid = false;
