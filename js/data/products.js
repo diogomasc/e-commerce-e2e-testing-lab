@@ -87,7 +87,7 @@ export const products = [
     },
     {
         id: "prod-006",
-        title: "Camiseta Básica Preta",
+        title: "Camiseta Básica",
         description: "Camiseta 100% algodão, gola redonda.",
         category: "Camisas",
         price: 45.00,
